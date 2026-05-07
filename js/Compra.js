@@ -120,7 +120,7 @@ function fecharModal() {
   location.reload(); // 🔄 recarrega a página
 }
 
-function baixarNota() {
+async function baixarNota() {
   try {
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/nota/${compraId}`, 
             {
