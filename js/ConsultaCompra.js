@@ -86,7 +86,9 @@ async function consultar() {
 
 function formatarData(data) {
     const d = new Date(data);
-    return d.toLocaleDateString("pt-BR");
+    return d.toLocaleDateString("pt-BR", {
+        timeZone: "UTC"
+    });
 }
 
 function formatarValor(valor) {
