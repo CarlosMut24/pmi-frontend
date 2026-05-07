@@ -56,6 +56,7 @@ async function buscar() {
 }
 
 let carregando = false;
+let compraId = 0;
 async function comprar() {
     if (carregando) return; // 🔒 bloqueia duplo clique
     carregando = true;
@@ -87,7 +88,7 @@ async function comprar() {
         }
         const dados = await res.json();
         console.log(dados);
-        compraId = dados.compra.id;
+        compraId = dados;
         // ✔ sucesso → lê como PDF
         // const blob = await res.blob();
 
@@ -119,12 +120,14 @@ function abrirModal(texto) {
 }
 
 function fecharModal() {
-  location.reload(); // 🔄 recarrega a página
+
+    location.reload(); // 🔄 recarrega a página
 }
 
 async function baixarNota() {
-  try {
-        const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/nota/${compraId}`, 
+    const id = compraId;
+    try {
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/nota/${id}`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
