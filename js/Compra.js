@@ -119,3 +119,27 @@ function abrirModal(texto) {
 function fecharModal() {
   location.reload(); // 🔄 recarrega a página
 }
+
+function baixarNota() {
+  try {
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/nota/${compraId}`, 
+            {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (!res.ok) {
+            const msg = await res.text();
+            abrirModal(msg);
+            return;
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        window.open(url);
+    } catch {
+        document.getElementById("erroBusca").innerText = "Erro de conexão";
+    }
+}
