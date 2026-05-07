@@ -192,6 +192,8 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
     console.log("ALTERAR DISPAROU");
     const id = idAlterar;
     const nome = document.getElementById("nomeAlterar").value;
+    const matricula = document.getElementById("matriculaAlterar").value;
+    const contrato = document.getElementById("contratoAlterar").value;
     const cpf = document.getElementById("cpfAlterar").value;
     const salario = document.getElementById("salarioAlterar").value;
     const limite = document.getElementById("limiteAlterar").value;
@@ -210,7 +212,10 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
                 nome: nome, 
                 cpf: cpf, 
                 salario: salario, 
-                limite: limite })
+                limite: limite, 
+                matricula: matricula,
+                contrato: contrato
+            })
         });
 
         const msg = await res.text();
