@@ -2,20 +2,16 @@ const token = localStorage.getItem("token");
 
 function logout() {
     localStorage.removeItem("token");
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
 }
 
 function voltar() {
     window.location.href = "Menu.html";
 }
 
-function logout_btn() {
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-}
 
 if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
 }
 
 document.getElementById("resultado").style.display = "none";
@@ -69,7 +65,7 @@ async function consultar() {
                 <td><strong>${item.id}</strong></td>
                 <td>${item.nome}</td>
                 <td>${item.empresa}</td>
-                <td><strong>${formatarData(item.data_vencimento)}</strong></td>
+                <td><strong>${item.data_vencimento}</strong></td>
                 <td><strong>${formatarValor(item.valor)}</strong></td>
                 <td>${item.nparcela + "/" + item.numero_parcelas}</td>
                 <td>${formatarValor(item.valor_parcela)}</td>

@@ -3,11 +3,11 @@ consultar()
 
 function logout() {
     localStorage.removeItem("token");
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
 }
 
 if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
 }
 
 // const decoded = jwt_decode(token);

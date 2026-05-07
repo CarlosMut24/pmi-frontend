@@ -6,13 +6,13 @@ function voltar() {
 
 function logout() {
     localStorage.removeItem("token");
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
 }
 
 const token = localStorage.getItem("token");
 
 if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
 }
 
 document.getElementById("card_Informações").style.display = "none";
