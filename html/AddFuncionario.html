@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Compra</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            margin: 0;
+        }
+
+        .topbar {
+            background: #1e1e1e;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .topbar {
+            height: 60px;
+            background: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .topbar button {
+            background: #c03232;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .topbar button:hover {
+            background: #d30c0c;
+        }
+
+        .container {
+            width: 1000px;
+            margin: 20px auto;
+        }
+
+        .card {
+            background: #1e1e1e;
+            align-self: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 38%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 0px;
+        }
+
+        select {
+            width: 12%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 0px;
+        }
+
+        .btn {
+            width: 20%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #c03232;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #d30c0c;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .row input, .row select {
+            padding: 8px;
+        }
+
+        #nome{
+            width: 80%;
+        }
+
+        .info {
+            justify-content: center;
+            gap: 75px;
+            margin-bottom: 0px;
+            color: white;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+        }
+
+        .table th, .table td {
+            border: 5px solid #929292;
+            padding: 5px;
+            text-align: center;
+            border-radius: 10px;            
+        }
+
+        .table th {
+            background: #ffdede;
+        }
+
+        .table td {
+            background: #fde9e9;
+            gap: 10px;
+        }
+        .table button {
+            width: 40%;
+        }
+        
+        .erro {
+            color: #f87171;
+            margin-top: 10px;
+        }
+
+        .modal {
+          display: none;
+          color: white;
+          position: fixed;
+          z-index: 999;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+          background: #1e1e1e;
+          margin: 8% auto;
+          padding: 20px;
+          width: 500px;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .close {
+          float: right;
+          font-size: 22px;
+          cursor: pointer;
+        }
+
+        .form-group {
+          margin-bottom: 12px;
+          justify-items: right;
+        }
+
+        .form-group label {
+          width: 20%;
+        }
+
+        .form-group input {
+          width: 80%;
+          padding: 8px;
+        }
+
+        .form-actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 15px;
+        }
+
+        .form-actions button {
+            width: 20%;
+        }
+
+        .modalMENOR {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modalMENOR-content {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            width: 300px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="topbar">
+        <button onclick="voltar()">Voltar</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <div class="row">
+                <input type="text" placeholder="Nome do Funcionário" id="nomeP">
+                <input type="text" placeholder="CPF" id="cpfP">
+                <button class="btn" onclick="consultar()">Consultar</button>
+            </div>
+            <p class="erro" id="erroBusca"></p>
+        </div>
+
+        <div class="card" id="resultado">
+            <div class="info" id="info">
+                <div class="row">
+                    <button class="btn" onclick="abrirModalFuncionario()">+ADD</button>                    
+
+                    <select id="empresa">
+                        <option value="Prefeitura">Prefeitura</option>
+                    </select>
+                </div>
+                <p class="erro" id="erroADD"></p>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Matricula</th>
+                        <th>Contrato</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Empresa</th>
+                        <th>Salario</th>
+                        <th>Limite</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaCompras">
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div id="modal" class="modalMENOR">
+        <div class="modalMENOR-content">
+            <p id="modalTexto"></p>
+            <button class="btn" onclick="fecharModal()">OK</button>
+        </div>
+    </div>
+
+    <div id="modalFuncionario" class="modal">
+        <div class="modal-content">
+            
+            <span class="close" onclick="fecharModalFuncionario()">&times;</span>
+
+            <h2>Cadastrar Funcionário</h2>
+
+            <form id="formFuncionario">
+
+            <div class="form-group">
+                <label for="nome">Nome:......</label>
+                <input type="text" id="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cpf">CPF:........</label>
+                <input type="text" id="cpf" required>
+            </div>
+
+            <div class="form-group">
+                <label for="matricula">Matricula:.</label>
+                <input type="number" id="matricula" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contrato">Contrato:.</label>
+                <input type="number" id="contrato" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salario">Salário:....</label>
+                <input type="number" id="salario" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="limite">Limite(%):</label>
+                <input type="number" id="limite" step="0.01" placeholder="Ex: 0.30" required>
+            </div>
+
+            <!-- <div class="form-group">
+                <p>se o limite for menor que 1 será tratado como %</p>
+            </div> -->
+
+            <div class="form-actions">
+                <button class="btn" type="button" onclick="fecharModalFuncionario()">Cancelar</button>
+                <button class="btn" type="submit">Salvar</button>
+            </div>
+
+            <p id="erroFuncionario" class="erro"></p>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="modalAlterar" class="modal">
+        <div class="modal-content">
+            
+            <span class="close" onclick="fecharModalAlterar()">&times;</span>
+
+            <h2>Cadastrar Funcionário</h2>
+
+            <form id="formAlterar">
+
+            <div class="form-group">
+                <label for="nomeAlterar">Nome:......</label>
+                <input type="text" id="nomeAlterar" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cpfAlterar">CPF:........</label>
+                <input type="text" id="cpfAlterar" required>
+            </div>
+
+            <div class="form-group">
+                <label for="matriculaAlterar">Matricula:.</label>
+                <input type="number" id="matriculaAlterar" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contratoAlterar">Contrato:.</label>
+                <input type="number" id="contratoAlterar" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salarioAlterar">Salário:....</label>
+                <input type="number" id="salarioAlterar" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="limiteAlterar">Limite(%):</label>
+                <input type="number" id="limiteAlterar" step="0.01" placeholder="Ex: 0.30" required>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn" type="button" onclick="fecharModalAlterar()">Cancelar</button>
+                <button class="btn" type="submit">Alterar</button>
+            </div>
+
+            <p id="erroFuncionario" class="erro"></p>
+
+            </form>
+        </div>
+    </div>
+    <script src="../js/AddFuncionario.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Autorização de Débito</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+}
+
+.container {
+    width: 775px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border: 1px solid #000;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.box {
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.full {
+    grid-column: span 4;
+}
+
+.half {
+    grid-column: span 2;
+}
+
+.small {
+    grid-column: span 1;
+}
+
+.label {
+    font-size: 11px;
+    color: #333;
+}
+
+.value {
+    font-weight: bold;
+}
+
+.footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.assinatura {
+    width: 300px;
+    border-top: 1px solid black;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.obs {
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 12px;
+    width: 55%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="header">
+    <h3></h3>
+    <h2>AUTORIZAÇÃO DE DÉBITO</h2>
+</div>
+
+<div class="grid">
+
+    <div class="box small">
+        <div class="label">ID Loja</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box small">
+        <div class="label">Login</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box half">
+        <div class="label">Razão Estabelecimento</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box full">
+        <div class="label">Identificação do Cliente</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box small">
+        <div class="label">Código de Autorização</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box small">
+        <div class="label">Data Operação</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box small">
+        <div class="label">Valor da Compra</div>
+        <div class="value">R$ -</div>
+    </div>
+
+    <div class="box small">
+        <div class="label">Nº Parcelas</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box full">
+        <div class="label">Nome do Cliente</div>
+        <div class="value">-</div>
+    </div>
+
+    <!--<div class="box half">
+        <div class="label">RG do Cliente</div>
+        <div class="value">-</div>
+    </div>
+
+    <div class="box half">
+        <div class="label">Tel p/ Contato</div>
+        <div class="value">-</div>
+    </div>-->
+
+    <div class="box full">
+        <div class="label">Nome da Empresa</div>
+        <div class="value">-</div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="obs">
+        Reconheço o débito e autorizo desconto em minha folha de pagamento,
+        débito em conta bancária ou rescisão contratual.
+        Esta autorização só deve ser assinada com apresentação de documento com foto.
+    </div>
+
+    <div>
+        <div class="assinatura">Assinatura</div>
+        <div class="assinatura">Nº Nota Fiscal</div>
+    </div>
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
