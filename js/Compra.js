@@ -85,9 +85,11 @@ async function comprar() {
             carregando = false;
             return;
         }
-
+        const dados = await res.json();
+        console.log(dados);
+        compraId = dados.compra.id;
         // ✔ sucesso → lê como PDF
-        const blob = await res.blob();
+        // const blob = await res.blob();
 
         // const url = window.URL.createObjectURL(blob);
 
@@ -96,9 +98,9 @@ async function comprar() {
         // a.download = "nota.pdf";
         // a.click();
 
-        const url = URL.createObjectURL(blob);
+        // const url = URL.createObjectURL(blob);
 
-        window.open(url);
+        // window.open(url);
 
         document.getElementById("erroCompra").innerText = "";
         abrirModal("Compra realizada com sucesso!");
