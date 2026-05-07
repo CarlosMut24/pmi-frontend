@@ -18,7 +18,7 @@ document.getElementById("resultado").style.display = "none";
 
 async function consultar() {
     document.getElementById("resultado").style.display = "none";
-    const funcionario_id = document.getElementById("id").value;
+    const compra_id = document.getElementById("id").value;
     const cpf = document.getElementById("cpf").value;
     const mes = document.getElementById("mes").value;
     const ano = document.getElementById("ano").value;
@@ -28,7 +28,7 @@ async function consultar() {
         
         const params = new URLSearchParams();
 
-        if (funcionario_id) params.append("funcionario_id", funcionario_id);
+        if (compra_id) params.append("compra_id", compra_id);
         if (cpf) params.append("cpf", cpf);
         if (mes !== undefined && mes !== "") params.append("mes", mes);
         if (ano) params.append("ano", ano);
