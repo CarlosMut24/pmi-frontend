@@ -56,6 +56,7 @@ async function buscar() {
 }
 
 let carregando = false;
+let compraId = 0;
 async function comprar() {
     if (carregando) return; // 🔒 bloqueia duplo clique
     carregando = true;
@@ -85,9 +86,10 @@ async function comprar() {
             carregando = false;
             return;
         }
-
+        const dados = await res.json();
+        compraId = dados;
         // ✔ sucesso → lê como PDF
-        const blob = await res.blob();
+        // const blob = await res.blob();
 
         // const url = window.URL.createObjectURL(blob);
 
@@ -96,9 +98,9 @@ async function comprar() {
         // a.download = "nota.pdf";
         // a.click();
 
-        const url = URL.createObjectURL(blob);
+        // const url = URL.createObjectURL(blob);
 
-        window.open(url);
+        // window.open(url);
 
         document.getElementById("erroCompra").innerText = "";
         abrirModal("Compra realizada com sucesso!");
@@ -117,5 +119,31 @@ function abrirModal(texto) {
 }
 
 function fecharModal() {
-  location.reload(); // 🔄 recarrega a página
+
+    location.reload(); // 🔄 recarrega a página
+}
+
+async function baixarNota() {
+    const id = compraId;
+    try {
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/nota/${id}`, 
+            {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (!res.ok) {
+            const msg = await res.text();
+            abrirModal(msg);
+            return;
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        window.open(url);
+    } catch {
+        document.getElementById("erroBusca").innerText = "Erro de conexão";
+    }
 }
