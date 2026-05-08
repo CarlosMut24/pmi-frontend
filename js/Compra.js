@@ -87,7 +87,6 @@ async function comprar() {
             return;
         }
         const dados = await res.json();
-        console.log(dados);
         compraId = dados;
         // ✔ sucesso → lê como PDF
         // const blob = await res.blob();
