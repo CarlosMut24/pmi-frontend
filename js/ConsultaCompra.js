@@ -66,9 +66,9 @@ async function consultar() {
                 <td>${item.nome}</td>
                 <td>${item.empresa}</td>
                 <td><strong>${formatarData(item.data_vencimento)}</strong></td>
-                <td><strong>${formatarValor(item.valor)}</strong></td>
+                <td>R$ ${formatarValor(item.valor)}</td>
                 <td>${item.nparcela + "/" + item.numero_parcelas}</td>
-                <td>${formatarValor(item.valor_parcela)}</td>
+                <td><strong>R$ ${formatarValor(item.valor_parcela)}</strong></td>
                 <td><button class="btn" onclick="baixarNota(${item.id})">Imprimir</button>
                 <button class="btn" onclick="deletar(${item.id})">Deletar</button></td>
             `
