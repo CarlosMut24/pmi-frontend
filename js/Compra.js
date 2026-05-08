@@ -45,7 +45,8 @@ async function buscar() {
 
         document.getElementById("nome").innerText = dados.funcionario.nome;
         document.getElementById("empresa").innerText = dados.funcionario.empresa;
-        document.getElementById("saldo").innerText = "R$ " + Number(saldo).toFixed(2)/*.replace(".", ",")*/;
+        console.log(saldo.toFixed(2))
+        document.getElementById("saldo").innerText = "R$ " + saldo.toFixed(2)/*.replace(".", ",")*/;
         //document.getElementById("limite").innerText = parseFloat(dados.funcionario.limite) +" R$";
 
         document.getElementById("erroBusca").innerText = "";
