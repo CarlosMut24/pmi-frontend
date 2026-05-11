@@ -68,7 +68,7 @@ async function consultar() {
                 <td><strong>${item.matricula}</strong></td>
                 <td><strong>${item.contrato}</strong></td>
                 <td>${item.nome}</td>
-                <td>${item.cpf}</td>
+                <td>${item.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</td>
                 <td>${item.empresa}</td>
                 <td><strong>${formatarValor(item.salario)}</strong></td>
                 <td><strong>${formatarlimite(item.limite, item.salario)}</strong></td>
