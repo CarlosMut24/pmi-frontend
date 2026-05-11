@@ -37,7 +37,18 @@ async function consultar() {
             },
         });
         
-        if (!res.ok) {
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        } else if (!res.ok) {
             const msg = await res.text();
             document.getElementById("erroBusca").innerText = msg;
             return;
@@ -93,7 +104,19 @@ async function deletar(id){
             "Authorization": "Bearer " + token
         }
     });
-    if (!res.ok) {
+
+    if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        }else if (!res.ok) {
         const msg = await res.text();
         abrirModal(msg);
         return;
@@ -137,12 +160,23 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
             body: JSON.stringify({ nome, cpf, salario, limite, matricula, contrato })
         });
 
-        const msg = await res.text();
+        if (res.status === 401) {
+        localStorage.removeItem("token");
 
-        if (!res.ok) {
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        } else if (!res.ok) {
             document.getElementById("erroFuncionario").innerText = msg;
             return;
         }
+
+        const msg = await res.text();
 
         fecharModalFuncionario();
         consultar()
@@ -167,6 +201,15 @@ function abrirModalFuncionario() {
 
 function fecharModalFuncionario() {
     document.getElementById("modalFuncionario").style.display = "none";
+}
+
+function abrirAlerta(texto) {
+  document.getElementById("alertaTexto").innerText = texto;
+  document.getElementById("alerta").style.display = "flex";
+}
+
+function fecharAlerta() {
+    location.reload(); // 🔄 recarrega a página
 }
 
 let idAlterar = 0;
@@ -217,13 +260,24 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
                 contrato: contrato
             })
         });
+        
+        if (res.status === 401) {
+        localStorage.removeItem("token");
 
-        const msg = await res.text();
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
 
-        if (!res.ok) {
+            return;
+        } else if (!res.ok) {
             document.getElementById("erroFuncionario").innerText = msg;
             return;
         }
+        
+        const msg = await res.text();
 
         fecharModalAlterar();
         consultar()

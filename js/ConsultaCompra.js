@@ -40,8 +40,19 @@ async function consultar() {
                 "Authorization": "Bearer " + token
             },
         });
-        
-        if (!res.ok) {
+
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        }else if (!res.ok) {
             const msg = await res.text();
             document.getElementById("erroBusca").innerText = msg;
             return;
@@ -106,7 +117,18 @@ async function baixarNota(compraId) {
             }
         });
 
-        if (!res.ok) {
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        } else if (!res.ok) {
             const msg = await res.text();
             abrirModal(msg);
             return;
@@ -123,22 +145,34 @@ async function baixarNota(compraId) {
 
 async function deletar(id){
     try {
-    const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/cancelar/${id}`, 
-        {
-        method: "DELETE",
-        headers: {
-            "Authorization": "Bearer " + token
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/cancelar/${id}`, 
+            {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (res.status === 401) {
+            localStorage.removeItem("token");
+
+                abrirAlerta(
+                    "Sua sessão expirou",
+                    () => {
+                        window.location.href = "Login.html";
+                    }
+                );
+
+                return;
+        }else if (!res.ok) {
+            const msg = await res.text();
+            abrirModal(msg);
+            return;
         }
-    });
-    if (!res.ok) {
-        const msg = await res.text();
-        abrirModal(msg);
-        return;
-    }
 
-    abrirModal("Exclusão concluida");
+        abrirModal("Exclusão concluida");
 
-    consultar()
+        consultar()
 
     } catch {
       abrirModal("Erro de conexão");
@@ -152,5 +186,14 @@ function abrirModal(texto) {
 
 function fecharModal() {
   document.getElementById("modal").style.display = "none";
+}
+
+function abrirAlerta(texto) {
+  document.getElementById("alertaTexto").innerText = texto;
+  document.getElementById("alerta").style.display = "flex";
+}
+
+function fecharAlerta() {
+    location.reload(); // 🔄 recarrega a página
 }
 
