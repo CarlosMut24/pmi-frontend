@@ -124,6 +124,8 @@ function fecharModal() {
 }
 
 async function baixarNota() {
+    const aba = window.open("", "_blank");
+    aba.document.write("Gerando PDF...");
     const id = compraId;
     try {
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/nota/${id}`, 
@@ -142,7 +144,8 @@ async function baixarNota() {
         const blob = await res.blob();
         const url = URL.createObjectURL(blob);
 
-        window.open(url);
+        aba.location.href = url;
+
     } catch {
         document.getElementById("erroBusca").innerText = "Erro de conexão";
     }
