@@ -154,6 +154,10 @@ function abrirAlerta(texto) {
   document.getElementById("alerta").style.display = "flex";
 }
 
+function fecharAlerta() {
+    location.reload(); // 🔄 recarrega a página
+}
+
 async function baixarNota() {
     const aba = window.open("", "_blank");
     aba.document.write("Gerando PDF...");
