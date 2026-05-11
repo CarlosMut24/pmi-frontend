@@ -37,7 +37,7 @@ async function buscar() {
             abrirAlerta(
                 "Sua sessão expirou",
                 () => {
-                    window.location.href = "../login/login.html";
+                    window.location.href = "Login.html";
                 }
             );
 
@@ -99,7 +99,7 @@ async function comprar() {
             abrirAlerta(
                 "Sua sessão expirou",
                 () => {
-                    window.location.href = "../login/login.html";
+                    window.location.href = "Login.html";
                 }
             );
 
@@ -172,7 +172,7 @@ async function baixarNota() {
             abrirAlerta(
                 "Sua sessão expirou",
                 () => {
-                    window.location.href = "../login/login.html";
+                    window.location.href = "Login.html";
                 }
             );
 
