@@ -31,6 +31,19 @@ async function buscar() {
             }
         });
 
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "../login/login.html";
+                }
+            );
+
+            return;
+        }
+
         if (!res.ok) {
             const msg = await res.text();
             document.getElementById("erroBusca").innerText = msg;
@@ -80,6 +93,19 @@ async function comprar() {
             body: JSON.stringify({ cpf, valor, parcelas })
         });
 
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "../login/login.html";
+                }
+            );
+
+            return;
+        }
+
         if (!res.ok) {
             const msg = await res.text(); // ✔ lê como texto
             document.getElementById("erroCompra").innerText = msg;
@@ -123,6 +149,11 @@ function fecharModal() {
     location.reload(); // 🔄 recarrega a página
 }
 
+function abrirAlerta(texto) {
+  document.getElementById("alertaTexto").innerText = texto;
+  document.getElementById("alerta").style.display = "flex";
+}
+
 async function baixarNota() {
     const aba = window.open("", "_blank");
     aba.document.write("Gerando PDF...");
@@ -134,6 +165,19 @@ async function baixarNota() {
                 "Authorization": "Bearer " + token
             }
         });
+
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "../login/login.html";
+                }
+            );
+
+            return;
+        }
 
         if (!res.ok) {
             const msg = await res.text();
