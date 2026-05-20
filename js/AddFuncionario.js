@@ -72,8 +72,9 @@ async function consultar() {
                 <td>${item.empresa}</td>
                 <td><strong>${formatarValor(item.salario)}</strong></td>
                 <td><strong>${formatarlimite(item.limite, item.salario)}</strong></td>
-                <td><button class="btn" onclick="alterar(${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite},
-                ${item.matricula}, ${item.contrato})">Alterar</button>
+                <td><strong>${formatarbloqueado(item.bloqueado)}</strong></td>
+                <td><button class="btn" onclick="alterar(
+                ${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite}, ${item.matricula}, ${item.contrato})">Alterar</button>
                 <button class="btn" onclick="deletar(${item.id})">Deletar</button></td>
             `
 
@@ -90,6 +91,13 @@ function formatarlimite(limite, salario) {
         limite = limite * salario
     }
     return Number(limite).toFixed(2).replace(".", ",");
+}
+
+function formatarbloqueado(bloqueado) {
+    if (bloqueado){
+            return "SIM";
+    }
+    return "NÃO";
 }
 
 function formatarValor(valor) {
