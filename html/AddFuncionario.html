@@ -43,7 +43,7 @@
         }
 
         .container {
-            width: 1450px;
+            width: 95%;
             margin: 20px auto;
         }
 
@@ -179,6 +179,16 @@
           padding: 8px;
         }
 
+        .form-radio {
+          margin-bottom: 12px;
+          justify-items: left;
+        }
+
+        .form-radio input {
+          width: 5%;
+          padding: 8px;
+        }
+
         .form-actions {
           display: flex;
           justify-content: space-between;
@@ -252,6 +262,7 @@
                         <th>Empresa</th>
                         <th>Salario</th>
                         <th>Limite</th>
+                        <th>Bloqueado</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -309,10 +320,9 @@
                 <input type="number" id="limite" step="0.01" placeholder="Ex: 0.30" required>
             </div>
 
-            <div class="form-group">
-                <p>Bloqueado:</p>
-                <label for="Sim">sim</label>
-                <input type="radio" id="Sim" name="Bloqueado" value=true checked>
+            <div class="form-radio">
+                <label for="Sim">Bloqueado: sim</label>
+                <input type="radio" id="Sim" name="Bloqueado" value=true>
                 <label for="Nao">não</label>
                 <input type="radio" id="Nao" name="Bloqueado" value=false>
             </div>
@@ -370,10 +380,9 @@
                 <input type="number" id="limiteAlterar" step="0.01" placeholder="Ex: 0.30" required>
             </div>
 
-            <div class="form-group">
-                <p>Bloqueado:</p>
-                <label for="SimAlterar">sim</label>
-                <input type="radio" id="SimAlterar" name="BloqueadoAlterar" value=true checked >
+            <div class="form-radio">
+                <label for="SimAlterar">Bloqueado: sim</label>
+                <input type="radio" id="SimAlterar" name="BloqueadoAlterar" value=true>
                 <label for="NaoAlterar">não</label>
                 <input type="radio" id="NaoAlterar" name="BloqueadoAlterar" value=false>
             </div>

@@ -72,7 +72,8 @@ async function consultar() {
                 <td>${item.empresa}</td>
                 <td><strong>${formatarValor(item.salario)}</strong></td>
                 <td><strong>${formatarlimite(item.limite, item.salario)}</strong></td>
-                <td><button class="btn" onclick="alterar(${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite})">Alterar</button>
+                <td><button class="btn" onclick="alterar(${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite},
+                ${item.matricula}, ${item.contrato})">Alterar</button>
                 <button class="btn" onclick="deletar(${item.id})">Deletar</button></td>
             `
 
@@ -213,12 +214,14 @@ function fecharAlerta() {
 }
 
 let idAlterar = 0;
-function alterar(id, nome, cpf, salario, limite){
+function alterar(id, nome, cpf, salario, limite, matricula, contrato){
     document.getElementById("modalAlterar").style.display = "block";
     
     idAlterar = id;
 
     document.getElementById("nomeAlterar").value = nome;
+    document.getElementById("matriculaAlterar").value = matricula;
+    document.getElementById("contratoAlterar").value = contrato;
     document.getElementById("cpfAlterar").value = cpf;
     document.getElementById("salarioAlterar").value = salario;
     document.getElementById("limiteAlterar").value = limite;
