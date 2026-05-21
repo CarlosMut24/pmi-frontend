@@ -158,6 +158,7 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
     const cpf = document.getElementById("cpf").value;
     const salario = document.getElementById("salario").value;
     const limite = document.getElementById("limite").value;
+    const bloqueado = document.querySelector('input[name="Bloqueado"]:checked').value;
 
     try {
         const res = await fetch("https://convenioiacanga-production.up.railway.app/funcionario/add", {
@@ -166,7 +167,7 @@ document.getElementById("formFuncionario").addEventListener("submit", async (e) 
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
             },
-            body: JSON.stringify({ nome, cpf, salario, limite, matricula, contrato })
+            body: JSON.stringify({ nome, cpf, salario, limite, matricula, contrato, bloqueado})
         });
 
         if (res.status === 401) {
