@@ -87,6 +87,21 @@
             background: #d30c0c;
         }
 
+        .btnModal {
+            width: 30%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #c03232;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btnModal:hover {
+            background: #d30c0c;
+        }
+
         .row {
             display: flex;
             gap: 10px;
@@ -398,10 +413,19 @@
             </form>
         </div>
     </div>
+
+    <div id="Confirmar" class="modalMENOR">
+        <div class="modalMENOR-content">
+            <p>Comfirme a exclusão</p>
+            <button class="btnModal" onclick="fecharComfirmar()">Cancelar</button>
+            <button class="btnModal" onclick="deletar()">Comfirme</button>
+        </div>
+    </div>
+
     <div id="alerta" class="modalMENOR">
         <div class="modalMENOR-content">
             <p id="alertaTexto"></p>
-            <button onclick="fecharAlerta()">OK</button>
+            <button class="btn" onclick="fecharAlerta()">OK</button>
         </div>
     </div>
     <script src="../js/AddFuncionario.js"></script>

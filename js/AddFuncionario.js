@@ -75,7 +75,7 @@ async function consultar() {
                 <td><strong>${formatarbloqueado(item.bloqueado)}</strong></td>
                 <td><button class="btn" onclick="alterar(
                 ${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite}, ${item.matricula}, ${item.contrato})">Alterar</button>
-                <button class="btn" onclick="deletar(${item.id})">Deletar</button></td>
+                <button class="btn" onclick="abrirComfirmar(${item.id})">Deletar</button></td>
             `
 
             tabela.appendChild(tr);
@@ -104,7 +104,19 @@ function formatarValor(valor) {
     return Number(valor).toFixed(2).replace(".", ",");
 }
 
-async function deletar(id){
+let idDeletar = 0;
+function abrirComfirmar(id) {
+  document.getElementById("Confirmar").style.display = "flex";
+  idDeletar = id;
+}
+
+function fecharComfirmar() {
+  document.getElementById("Confirmar").style.display = "none";
+  idDeletar = 0;
+}
+
+async function deletar(){
+    const id = idDeletar;
     try {
     const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/delete/${id}`, 
         {
@@ -130,7 +142,7 @@ async function deletar(id){
         abrirModal(msg);
         return;
     }
-
+    fecharComfirmar();
     abrirModal("Exclusão concluida");
 
     consultar()
