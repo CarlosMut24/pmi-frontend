@@ -251,8 +251,9 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
     const cpf = document.getElementById("cpfAlterar").value;
     const salario = document.getElementById("salarioAlterar").value;
     const limite = document.getElementById("limiteAlterar").value;
+    const bloqueado = document.querySelector('input[name="BloqueadoAlterar"]:checked').value;
 
-    console.log(idAlterar, cpf, nome, salario, limite)
+    console.log(idAlterar, cpf, nome, salario, limite, bloqueado)
 
     try {
         const res = await fetch("https://convenioiacanga-production.up.railway.app/funcionario/alterar", {
@@ -268,7 +269,8 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
                 salario: salario, 
                 limite: limite, 
                 matricula: matricula,
-                contrato: contrato
+                contrato: contrato,
+                bloqueado: bloqueado
             })
         });
         
