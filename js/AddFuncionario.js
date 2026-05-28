@@ -73,9 +73,13 @@ async function consultar() {
                 <td><strong>${formatarValor(item.salario)}</strong></td>
                 <td><strong>${formatarlimite(item.limite, item.salario)}</strong></td>
                 <td><strong>${formatarbloqueado(item.bloqueado)}</strong></td>
-                <td><button class="btn" onclick="alterar(
-                ${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite}, ${item.matricula}, ${item.contrato})">Alterar</button>
-                <button class="btn" onclick="abrirComfirmar(${item.id})">Deletar</button></td>
+                <td><button class="btnIcone" title=\"Alterar funcionário\" onclick="alterar(
+                ${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite}, ${item.matricula}, ${item.contrato})">
+                <i class="bi bi-pencil-square"></i></button>
+                <button class="btnIcone" title=\"Excluir funcionário\" onclick="abrirComfirmar(${item.id})">
+                <i class="bi bi-trash3-fill"></i></button>
+                <button class="btnIcone" title=\"Relarotio de Compas do funcionario\" onclick="excel(${item.id})">
+                <i class="bi bi-download"></i></button></td>
             `
 
             tabela.appendChild(tr);
@@ -320,3 +324,46 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
         document.getElementById("erroFuncionario").innerText = "Erro de conexão";
     }
 });
+
+async function excel(id_funcionario) {
+        console.log("comeso");
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/excel/${id_funcionario}`, 
+            {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+        console.log("fetch");
+
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        } else if (!res.ok) {
+            const msg = await res.text();
+            abrirModal(msg)
+            return;
+        }
+        console.log("erros");
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        console.log("blob e url");
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "funcionario.xlsx";
+        a.click();
+        console.log("download");
+
+        abrirModal("download iniciado");
+// router.get("/excel/:id", auth, permissao(PERMISSOES.RELATORIO_FUNCIONARIOS), MEUlog('Solicitou um relatorio do funcionario'), controller.relatorioFuncionario)
+
+}
