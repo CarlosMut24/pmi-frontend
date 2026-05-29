@@ -82,7 +82,7 @@ async function consultar() {
                 <td><strong>R$ ${formatarValor(item.valor_parcela)}</strong></td>
                 <td><button class="btn" title=\"Imprimir a Nota da compra\" onclick="baixarNota(${item.id})">
                 <i class="bi bi-printer"></i></i></button>
-                <button class="btn" onclick=" abrirComfirmar(${item.id})">
+                <button class="btn" title=\"Cancelar a compra\" onclick=" abrirComfirmar(${item.id})">
                 <i class="bi bi-trash3"></i></button></td>
             `
 
