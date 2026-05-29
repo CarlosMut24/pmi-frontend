@@ -43,16 +43,20 @@ const permissoesUsuario = ROLE_PERMISSIONS[decoded.tipo];
 //const quantidade = 0
 
 // esconder botão se não tiver permissão
-if (!permissoesUsuario.includes(PERMISSOES.COMPRAR)) {
-  document.getElementById("btnCompra").style.display = "none";
+document.getElementById("btnCompra").style.display = "none";
+document.getElementById("btnConsultar_Cliente").style.display = "none";
+document.getElementById("btnAddFuncionario").style.display = "none";
+
+if (permissoesUsuario.includes(PERMISSOES.COMPRAR)) {
+  document.getElementById("btnCompra").style.display = "flex";
 }
 
-if (!permissoesUsuario.includes(PERMISSOES.CONSULTAR)) {
-  document.getElementById("btnConsultar_Cliente").style.display = "none";
+if (permissoesUsuario.includes(PERMISSOES.CONSULTAR)) {
+  document.getElementById("btnConsultar_Cliente").style.display = "flex";
 }
 
-if (!permissoesUsuario.includes(PERMISSOES.ADD_FUNCIONARIO)) {
-  document.getElementById("btnAddFuncionario").style.display = "none";
+if (permissoesUsuario.includes(PERMISSOES.ADD_FUNCIONARIO)) {
+  document.getElementById("btnAddFuncionario").style.display = "flex";
 }
 
 const menu = document.querySelector(".menu");

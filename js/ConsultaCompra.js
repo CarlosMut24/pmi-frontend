@@ -80,8 +80,10 @@ async function consultar() {
                 <td>R$ ${formatarValor(item.valor)}</td>
                 <td>${item.nparcela + "/" + item.numero_parcelas}</td>
                 <td><strong>R$ ${formatarValor(item.valor_parcela)}</strong></td>
-                <td><button class="btn" onclick="baixarNota(${item.id})">Imprimir</button>
-                <button class="btn" onclick="deletar(${item.id})">Deletar</button></td>
+                <td><button class="btn" title=\"Imprimir a Nota da compra\" onclick="baixarNota(${item.id})">
+                <i class="bi bi-printer"></i></i></button>
+                <button class="btn" onclick=" abrirComfirmar(${item.id})">
+                <i class="bi bi-trash3"></i></button></td>
             `
 
             tabela.appendChild(tr);
@@ -143,7 +145,19 @@ async function baixarNota(compraId) {
     }
 }
 
-async function deletar(id){
+let idDeletar = 0;
+function abrirComfirmar(id) {
+  document.getElementById("Confirmar").style.display = "flex";
+  idDeletar = id;
+}
+
+function fecharComfirmar() {
+  document.getElementById("Confirmar").style.display = "none";
+  idDeletar = 0;
+}
+
+async function deletar(){
+    const id = idDeletar;
     try {
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/compras/cancelar/${id}`, 
             {
@@ -171,7 +185,7 @@ async function deletar(id){
         }
 
         abrirModal("Exclusão concluida");
-
+        fecharComfirmar()
         consultar()
 
     } catch {

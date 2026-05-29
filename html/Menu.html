@@ -74,28 +74,40 @@
 
         .card h2 {
             font-size: 16px;
+            padding-top: 15px;
+            padding-left: 10px;
+        }
+
+        .card i {
+            font-size: 50px;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="topbar">
         <!--<img src="..\imagens\pngegg.png" alt="Logo">-->
         <h1>Sistema Farmácia</h1>
-        <button class="logout-btn" onclick="logout()">Sair</button>
+        <button class="logout-btn" onclick="logout()"><i class="bi bi-door-closed-fill"></i> Logout</button>
     </div>
 
     <div class="container">
         <div class="menu">
 
             <div class="card" id="btnCompra" onclick="irParaCompra()">
+                <i class="bi bi-cart4"></i>
+                <br>
                 <h2>Registrar Compra</h2>
             </div>
 
             <div class="card" id="btnConsultar_Cliente" onclick="irParaConsulta()">
+                <!-- <i class="bi bi-cash-stack"></i> -->
+                <i class="bi bi-bag-check-fill"></i>
                 <h2>Consultar Compra</h2>
             </div>
 
             <div class="card" id="btnAddFuncionario" onclick="irParaAddFuncionario()">
+                <i class="bi bi-person-lines-fill"></i>
                 <h2>Adicionar Funcionario</h2>
             </div>
             
