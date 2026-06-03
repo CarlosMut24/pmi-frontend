@@ -16,6 +16,43 @@ if (!token) {
 
 document.getElementById("resultado").style.display = "none";
 
+async function relatorio() {
+    const res = await fetch(`https://convenioiacanga-production.up.railway.app/empresas/excel/`, 
+            {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+        console.log("fetch");
+
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        } else if (!res.ok) {
+            const msg = await res.text();
+            abrirModal(msg)
+            return;
+        }
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Relatorio.xlsx";
+        a.click();
+
+        abrirModal("download iniciado");
+}
+
 async function consultar() {
     document.getElementById("resultado").style.display = "none";
     const compra_id = document.getElementById("id").value;

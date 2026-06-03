@@ -326,7 +326,7 @@ document.getElementById("formAlterar").addEventListener("submit", async (e) => {
 });
 
 async function excel(id_funcionario) {
-        console.log("comeso");
+
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/excel/${id_funcionario}`, 
             {
             headers: {
@@ -351,17 +351,14 @@ async function excel(id_funcionario) {
             abrirModal(msg)
             return;
         }
-        console.log("erros");
 
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
-        console.log("blob e url");
 
         const a = document.createElement("a");
         a.href = url;
         a.download = "funcionario.xlsx";
         a.click();
-        console.log("download");
 
         abrirModal("download iniciado");
 // router.get("/excel/:id", auth, permissao(PERMISSOES.RELATORIO_FUNCIONARIOS), MEUlog('Solicitou um relatorio do funcionario'), controller.relatorioFuncionario)

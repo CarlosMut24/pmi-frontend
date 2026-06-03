@@ -82,6 +82,19 @@
             transition: 0.2s;
         }
 
+        .relatorio {
+            width: 10%;
+            height: 40px;
+            padding: 10px;
+            border: none;
+            font-size: 100%;
+            border-radius: 8px;
+            background: #c03232;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
         .btn:hover {
             background: #d30c0c;
         }
@@ -107,6 +120,7 @@
             margin-bottom: 0px;
             color: white;
             font-size: 20px;
+            align-items: center;
         }
 
         .table {
@@ -224,6 +238,7 @@
             <div class="info" id="info">
                 <p><strong>VOLOR TOTAL: R$<span id="total">-</span></strong></p>
                 <p><strong>NUMERO  DE COMPRAS: <span id="numero">-</span></strong></p>
+                <button class="relatorio" onclick="relatorio()">Relatorio</button>
             </div>
             <table class="table">
                 <thead>
