@@ -16,6 +16,10 @@ function irParaAddFuncionario() {
     window.location.href = "AddFuncionario.html";
 }
 
+function irParaRelatorio() {
+    window.location.href = "RelatorioRH.html";
+}
+
 const token = localStorage.getItem("token");
 
 if (!token) {
@@ -28,13 +32,14 @@ const PERMISSOES = {
   COMPRAR: "comprar",
   CONSULTAR: "consultar",
   ADD_FUNCIONARIO: "add_funcionario",
+  RELATORIO_RH: "relatorio_rh",
   ADMIN: "admin"
 };
 
 const ROLE_PERMISSIONS = {
-  0: ["comprar", "consultar", "add_funcionario", "admin"],
+  0: ["comprar", "consultar", "add_funcionario", "relatorio_rh",  "admin"],
   1: ["comprar", "consultar"],
-  2: ["consultar", "add_funcionario"]
+  2: ["add_funcionario", "relatorio_rh"]
 };
 
 const decoded = jwt_decode(token);
@@ -43,9 +48,9 @@ const permissoesUsuario = ROLE_PERMISSIONS[decoded.tipo];
 //const quantidade = 0
 
 // esconder botão se não tiver permissão
-document.getElementById("btnCompra").style.display = "none";
-document.getElementById("btnConsultar_Cliente").style.display = "none";
-document.getElementById("btnAddFuncionario").style.display = "none";
+// document.getElementById("btnCompra").style.display = "none";
+// document.getElementById("btnConsultar_Cliente").style.display = "none";
+// document.getElementById("btnAddFuncionario").style.display = "none";
 
 if (permissoesUsuario.includes(PERMISSOES.COMPRAR)) {
   document.getElementById("btnCompra").style.display = "flex";
@@ -57,6 +62,10 @@ if (permissoesUsuario.includes(PERMISSOES.CONSULTAR)) {
 
 if (permissoesUsuario.includes(PERMISSOES.ADD_FUNCIONARIO)) {
   document.getElementById("btnAddFuncionario").style.display = "flex";
+}
+
+if (permissoesUsuario.includes(PERMISSOES.RELATORIO_RH)) {
+  document.getElementById("btnRelatorioRH").style.display = "flex";
 }
 
 const menu = document.querySelector(".menu");
