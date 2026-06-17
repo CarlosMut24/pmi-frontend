@@ -186,6 +186,7 @@
 
         .jenela{
             display: none;
+            justify-content: center;
         }
 
         .tabs{
@@ -223,6 +224,7 @@
                 <button onclick="abrirFarmacias()" id="btnFarmacias">Farmácias</button>
                 <button onclick="abrirFuncionario()" id="btnFuncionarios"><strong>Funcionários</strong></button>
                 <button onclick="abrirFechamento()" id="btnFechamentos">Fechamentos</button>
+                </br><p class="erro" id="erroBusca"></p>
             </div>
 
             <div class="jenela" id="abaFarmacias">
@@ -256,11 +258,37 @@
             </div>
 
             <div class="jenela" id="abaFechamentos">
+               
+                </br>
+                <select id="mes">
+                    <option value="">Mês </option>
+                    <option value="00">Janeiro </option>
+                    <option value="01">Fevereiro </option>
+                    <option value="02">Março</option>
+                    <option value="03">Abril </option>
+                    <option value="04">Maio </option>
+                    <option value="05">Junho </option>
+                    <option value="06">Julho </option>
+                    <option value="07">Agosto </option>
+                    <option value="08">Setembro </option>
+                    <option value="09">Outubro </option>
+                    <option value="10">Novembro </option>
+                    <option value="11">Dezembro </option>
+                </select>
+
+                <select id="ano">
+                    <option value="2026">2026</option>
+                    <!--<option value="2027">2027</option>-->
+                </select>
+                </br>
+                <p></p>
+
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Comeso</th>
-                            <th>Termino</th>
+                            <th>Mês</th>
+                            <th>Ano</th>
+                            <th>Perildo</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
@@ -271,11 +299,10 @@
         </div>
     </div>
     
-    <!-- <div id="modal" class="modal">
+    <div id="modal" class="modal">
         <div class="modal-content">
             <p id="modalTexto"></p>
             <button onclick="fecharModal()">OK</button>
-            <button onclick="baixarNota()">IMPRIMIR</button>
         </div>
     </div>
 
@@ -284,8 +311,9 @@
             <p id="alertaTexto"></p>
             <button onclick="fecharAlerta()">OK</button>
         </div>
-    </div> -->
-    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>    
     <script src="../js/RelatorioRH.js"></script>
 </body>
 </html>
