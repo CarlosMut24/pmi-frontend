@@ -31,6 +31,7 @@ function abrirFechamento(){
     document.getElementById("abaFarmacias").style.display = "none";
     document.getElementById("abaFuncionarios").style.display = "none";
     document.getElementById("abaFechamentos").style.display = "block";
+    consultarFechamento()
 }
 
 async function consultarFarmacias_vendas() {
@@ -67,7 +68,6 @@ async function consultarFarmacias_vendas() {
         const decoded = jwt_decode(token);
         
         dados.forEach(farmacia => {
-            console.log(decoded.id, farmacia.rh_id)
             if (farmacia.rh_id ==  decoded.id){
                 const tr = document.createElement("tr");
 
@@ -94,7 +94,7 @@ async function consultarFuncionarios_gastos() {
                 "Authorization": "Bearer " + token
             },
         });
-
+        
         if (res.status === 401) {
         localStorage.removeItem("token");
 
@@ -118,7 +118,6 @@ async function consultarFuncionarios_gastos() {
         tabela.innerHTML = "";
 
         const decoded = jwt_decode(token);
-        
         dados.forEach(funcionario => {
             console.log(decoded.id, funcionario.rh_id)
             const tr = document.createElement("tr");
@@ -142,7 +141,7 @@ async function consultarFuncionarios_gastos() {
 
 async function consultarFechamento() {
     try{
-        const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/relatorio`, 
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
@@ -172,17 +171,18 @@ async function consultarFechamento() {
         tabela.innerHTML = "";
 
         const decoded = jwt_decode(token);
+        console.log(dados);
         
         dados.forEach(funcionario => {
             console.log(decoded.id, funcionario.rh_id)
             const tr = document.createElement("tr");
             
             tr.innerHTML = `
-            <td><strong>${funcionario.nome}</strong></td>
-            <td><strong>${funcionario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</strong></td>
-            <td><strong>${funcionario.Matricula}</strong></td>
-            <td><strong>${funcionario.contrato}</strong></td>
-            <td><strong>${funcionario.total}</strong></td>                    
+            <td><strong>${funcionario.mes}</strong></td>
+            <td><strong>${funcionario.ano}</strong></td>
+            <td><strong>${funcionario.data_inicio}</strong></td>
+            <button class="btnIcone" title=\"Baixar fechamneto\" onclick="">
+            <i class="bi bi-download"></i></button></td>                  
             `
             
             tabela.appendChild(tr);
