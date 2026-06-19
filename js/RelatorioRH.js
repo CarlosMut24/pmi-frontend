@@ -119,13 +119,12 @@ async function consultarFuncionarios_gastos() {
 
         const decoded = jwt_decode(token);
         dados.forEach(funcionario => {
-            console.log(decoded.id, funcionario.rh_id)
             const tr = document.createElement("tr");
             
             tr.innerHTML = `
             <td><strong>${funcionario.nome}</strong></td>
             <td><strong>${funcionario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</strong></td>
-            <td><strong>${funcionario.Matricula}</strong></td>
+            <td><strong>${funcionario.matricula}</strong></td>
             <td><strong>${funcionario.contrato}</strong></td>
             <td><strong>${funcionario.total}</strong></td>                    
             `
@@ -171,17 +170,15 @@ async function consultarFechamento() {
         tabela.innerHTML = "";
 
         const decoded = jwt_decode(token);
-        console.log(dados);
         
         dados.forEach(funcionario => {
-            console.log(decoded.id, funcionario.rh_id)
             const tr = document.createElement("tr");
             
             tr.innerHTML = `
             <td><strong>${funcionario.mes}</strong></td>
             <td><strong>${funcionario.ano}</strong></td>
-            <td><strong>${funcionario.data_inicio}</strong></td>
-            <button class="btnIcone" title=\"Baixar fechamneto\" onclick="">
+            <td><strong>${formatarData(funcionario.data_inicio)} a ${formatarData(funcionario.data_fim)}</strong></td>
+            <td><button class="btnIcone" title=\"Baixar fechamneto\" onclick="relatorio(${funcionario.id})">
             <i class="bi bi-download"></i></button></td>                  
             `
             
@@ -192,6 +189,50 @@ async function consultarFechamento() {
     } catch {
         abrirModal("Erro de conexão");
     }
+}
+
+async function relatorio(fechamentoId) {
+    const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/relatorio/${fechamentoId}`, 
+            {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+        console.log("fetch");
+
+        if (res.status === 401) {
+        localStorage.removeItem("token");
+
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        } else if (!res.ok) {
+            const msg = await res.text();
+            abrirModal(msg)
+            return;
+        }
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Fechamento.xlsx";
+        a.click();
+
+        abrirModal("download iniciado");
+}
+
+function formatarData(data) {
+    const d = new Date(data);
+    return d.toLocaleDateString("pt-BR", {
+        timeZone: "UTC"
+    });
 }
 
 function abrirModal(texto) {
