@@ -146,7 +146,6 @@ async function consultarFechamento() {
         
         if (mes !== undefined && mes !== "") params.append("mes", mes);
         if (ano) params.append("ano", ano);
-        console.log(mes, params)
 
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar?${params}`, 
             {
