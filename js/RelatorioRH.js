@@ -141,14 +141,18 @@ async function consultarFuncionarios_gastos() {
 async function consultarFechamento() {
     const mes = document.getElementById("mes").value;
     const ano = document.getElementById("ano").value;
-    try{
+    // try{
+        const params = new URLSearchParams();
+        
+        if (mes !== undefined && mes !== "") params.append("mes", mes);
+        if (ano) params.append("ano", ano);
+        console.log(mes, params)
 
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar?${params}`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
             },
-            body: JSON.stringify({ mes: mes, ano: ano})
         });
 
         if (res.status === 401) {
@@ -190,9 +194,9 @@ async function consultarFechamento() {
             
         })
 
-    } catch {
-        abrirModal("Erro de conexão");
-    }
+    // } catch {
+    //     abrirModal("Erro de conexão");
+    // }
 }
 
 async function relatorio(fechamentoId) {
