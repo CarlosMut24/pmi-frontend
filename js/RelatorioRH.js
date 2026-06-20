@@ -142,16 +142,13 @@ async function consultarFechamento() {
     const mes = document.getElementById("mes").value;
     const ano = document.getElementById("ano").value;
     try{
-        const params = new URLSearchParams();
-
-        if (mes !== undefined && mes !== "") params.append("mes", mes);
-        if (ano) params.append("ano", ano);
 
         const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar?${params}`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
             },
+            body: JSON.stringify({ mes: mes, ano: ano})
         });
 
         if (res.status === 401) {
