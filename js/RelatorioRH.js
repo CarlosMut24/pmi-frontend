@@ -139,8 +139,15 @@ async function consultarFuncionarios_gastos() {
 }
 
 async function consultarFechamento() {
-    try{
-        const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar`, 
+    const mes = document.getElementById("mes").value;
+    const ano = document.getElementById("ano").value;
+    // try{
+        const params = new URLSearchParams();
+        
+        if (mes !== undefined && mes !== "") params.append("mes", mes);
+        if (ano) params.append("ano", ano);
+
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar?${params}`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
@@ -186,9 +193,9 @@ async function consultarFechamento() {
             
         })
 
-    } catch {
-        abrirModal("Erro de conexão");
-    }
+    // } catch {
+    //     abrirModal("Erro de conexão");
+    // }
 }
 
 async function relatorio(fechamentoId) {
