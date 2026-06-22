@@ -76,7 +76,7 @@ async function consultar() {
                 <td><button class="btnIcone" title=\"Alterar funcionário\" onclick="alterar(
                 ${item.id}, '${item.nome}', '${item.cpf}', ${item.salario}, ${item.limite}, ${item.matricula}, ${item.contrato})">
                 <i class="bi bi-pencil-square"></i></button>
-                <button class="btnIcone" title=\"Excluir funcionário\" onclick="abrirComfirmar(${item.id})">
+                <button class="btnIcone" title=\"Excluir funcionário\" onclick="abrirComfirmar(${item.id}, '${item.nome}')">
                 <i class="bi bi-trash3-fill"></i></button>
                 <button class="btnIcone" title=\"Relarotio de Compas do funcionario\" onclick="excel(${item.id})">
                 <i class="bi bi-download"></i></button></td>
@@ -109,9 +109,10 @@ function formatarValor(valor) {
 }
 
 let idDeletar = 0;
-function abrirComfirmar(id) {
-  document.getElementById("Confirmar").style.display = "flex";
-  idDeletar = id;
+function abrirComfirmar(id, funcionario) {
+    document.getElementById("confirmarTexto").innerText = `Excluir ${funcionario}?`;
+    document.getElementById("Confirmar").style.display = "flex";
+    idDeletar = id;
 }
 
 function fecharComfirmar() {
