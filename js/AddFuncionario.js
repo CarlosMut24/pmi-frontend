@@ -125,39 +125,46 @@ async function deletar(){
     const id = idDeletar;
     const recisao = document.getElementById("recisao").value
     console.log(recisao, id)
-    // try {
-    // const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/delete/${id}/${recisao}`, 
-    //     {
-    //     method: "DELETE",
-    //     headers: {
-    //         "Authorization": "Bearer " + token
-    //     }
-    // });
 
-    // if (res.status === 401) {
-    //     localStorage.removeItem("token");
+    if(recisao == ""){
+        document.getElementById("erroConfirmar").innerText = `adicione a data de recisão`;
+        return;
+    }else document.getElementById("erroConfirmar").innerText = ``;
+    try {
+    const params = new URLSearchParams();
+    
+    const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/delete/${id}/'${recisao}'`, 
+        {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
 
-    //         abrirAlerta(
-    //             "Sua sessão expirou",
-    //             () => {
-    //                 window.location.href = "Login.html";
-    //             }
-    //         );
+    if (res.status === 401) {
+        localStorage.removeItem("token");
 
-    //         return;
-    //     }else if (!res.ok) {
-    //     const msg = await res.text();
-    //     abrirModal(msg);
-    //     return;
-    // }
+            abrirAlerta(
+                "Sua sessão expirou",
+                () => {
+                    window.location.href = "Login.html";
+                }
+            );
+
+            return;
+        }else if (!res.ok) {
+        const msg = await res.text();
+        abrirModal(msg);
+        return;
+    }
     fecharComfirmar();
     abrirModal("Exclusão desativada momentaneamente");
 
-    // consultar()
+    consultar()
 
-    // } catch {
-    //   abrirModal("Erro de conexão");
-    // }
+    } catch {
+      abrirModal("Erro de conexão");
+    }
 }
 
 function abrirModal(texto) {
