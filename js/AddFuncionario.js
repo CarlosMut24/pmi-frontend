@@ -158,7 +158,7 @@ async function deletar(){
         return;
     }
     fecharComfirmar();
-    abrirModal("Exclusão desativada momentaneamente");
+    abrirModal("Exclusão concluida");
 
     consultar()
 
