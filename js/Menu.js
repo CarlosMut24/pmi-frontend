@@ -20,6 +20,10 @@ function irParaRelatorio() {
     window.location.href = "RelatorioRH.html";
 }
 
+function irParaRelatorioFar() {
+    window.location.href = "RelatorioFar.html";
+}
+
 const token = localStorage.getItem("token");
 
 if (!token) {
@@ -32,13 +36,14 @@ const PERMISSOES = {
   COMPRAR: "comprar",
   CONSULTAR: "consultar",
   ADD_FUNCIONARIO: "add_funcionario",
+  RELATORIO_FAR: "relatorio_far",
   RELATORIO_RH: "relatorio_rh",
   ADMIN: "admin"
 };
 
 const ROLE_PERMISSIONS = {
-  0: ["comprar", "consultar", "add_funcionario", "relatorio_rh",  "admin"],
-  1: ["comprar", "consultar"],
+  0: ["comprar", "consultar", "add_funcionario", "relatorio_far" , "relatorio_rh",  "admin"],
+  1: ["comprar", "consultar", "relatorio_far"],
   2: ["add_funcionario", "relatorio_rh"]
 };
 
@@ -68,13 +73,17 @@ if (permissoesUsuario.includes(PERMISSOES.RELATORIO_RH)) {
   document.getElementById("btnRelatorioRH").style.display = "flex";
 }
 
+// if (permissoesUsuario.includes(PERMISSOES.RELATORIO_FAR)) {
+//   document.getElementById("btnRelatorioFar").style.display = "flex";
+// }
+
 const menu = document.querySelector(".menu");
 const quantidade = menu.children.length;
 console.log(quantidade)
 if (quantidade <= 4) {
     menu.style.gridTemplateColumns = `repeat(2, 200px)`;
 }else if (quantidade <= 8) {
-    menu.style.gridTemplateColumns = `repeat(4, 200px)`;
+    menu.style.gridTemplateColumns = `repeat(2, 200px)`;
 }else {
-    menu.style.gridTemplateColumns = `repeat(8, 125px)`;
+    menu.style.gridTemplateColumns = `repeat(2, 200px)`;
 }
