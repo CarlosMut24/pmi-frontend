@@ -218,6 +218,7 @@ async function deletar(){
         }else if (!res.ok) {
             const msg = await res.text();
             abrirModal(msg);
+            fecharComfirmar()
             return;
         }
 
