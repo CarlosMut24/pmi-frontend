@@ -18,6 +18,9 @@ if (!token) {
 document.getElementById("card_Informações").style.display = "none";
 document.getElementById("ceta").style.display = "none";
 async function buscar() {
+    if (carregando) return; // 🔒 bloqueia duplo clique
+    carregando = true;
+
     const cpf = document.getElementById("cpf").value;
     if (cpf == ""){
         document.getElementById("erroBusca").innerText = "DIGITE O CPF";
@@ -65,6 +68,9 @@ async function buscar() {
 
     } catch {
         document.getElementById("erroBusca").innerText = "Erro de conexão";
+        carregando = false;
+    } finally {
+        carregando = false;
     }
 }
 

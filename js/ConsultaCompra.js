@@ -16,8 +16,14 @@ if (!token) {
 
 document.getElementById("resultado").style.display = "none";
 
+let carregando = false;
+
 async function relatorio() {
-    const res = await fetch(`https://convenioiacanga-production.up.railway.app/empresas/excel/`, 
+    if (carregando) return; // 🔒 bloqueia duplo clique
+    carregando = true;
+
+    try{
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/empresas/excel/`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
@@ -51,9 +57,17 @@ async function relatorio() {
         a.click();
 
         abrirModal("download iniciado");
+    } catch {
+        document.getElementById("erroBusca").innerText = "Erro de conexão";
+        carregando = false;
+    } finally {
+        carregando = false;
+    }
 }
 
 async function consultar() {
+    if (carregando) return; // 🔒 bloqueia duplo clique
+    carregando = true;
     document.getElementById("resultado").style.display = "none";
     const compra_id = document.getElementById("id").value;
     const cpf = document.getElementById("cpf").value;
@@ -131,6 +145,8 @@ async function consultar() {
         
     } catch {
         document.getElementById("erroBusca").innerText = "Erro de conexão";
+    } finally {
+        carregando = false;
     }
 }
 

@@ -21,7 +21,12 @@ function voltar() {
     window.location.href = "Menu.html";
 }
 
+let carregando = false;
+
 async function consultar() {
+    if (carregando) return; // 🔒 bloqueia duplo clique
+    carregando = true;
+
     const cpf = document.getElementById("cpfP").value;
     const nome = document.getElementById("nomeP").value;
     try{
@@ -87,6 +92,9 @@ async function consultar() {
         
     } catch {
         document.getElementById("erroBusca").innerText = "Erro de conexão";
+        carregando = false;
+    } finally {
+        carregando = false;
     }
 }
 
