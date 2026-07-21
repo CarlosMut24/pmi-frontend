@@ -14,34 +14,26 @@ if (!token) {
 }
 
 function abrirFarmacias(){
-    document.getElementById("abaFarmacias").style.display = "block";
-    document.getElementById("abaFuncionarios").style.display = "none";
+    document.getElementById("abaFarmacias").style.display = "flex";
     document.getElementById("abaFechamentos").style.display = "none";
     consultarFarmacias_vendas()
 }
 
-function abrirFuncionario(){
-    document.getElementById("abaFarmacias").style.display = "none";
-    document.getElementById("abaFuncionarios").style.display = "block";
-    document.getElementById("abaFechamentos").style.display = "none";
-    consultarFuncionarios_gastos()   
-}
-
 function abrirFechamento(){
     document.getElementById("abaFarmacias").style.display = "none";
-    document.getElementById("abaFuncionarios").style.display = "none";
     document.getElementById("abaFechamentos").style.display = "block";
     consultarFechamento()
 }
 
 async function consultarFarmacias_vendas() {
     try{
-        const res = await fetch(`https://convenioiacanga-production.up.railway.app/empresas/relatorio`, 
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/empresas/relatorioFar`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
             },
         });
+
 
         if (res.status === 401) {
         localStorage.removeItem("token");
@@ -61,6 +53,7 @@ async function consultarFarmacias_vendas() {
         }
 
         const dados = await res.json();
+        console.log(dados)
 
         const tabela = document.getElementById("tabelaFarmacias");
         tabela.innerHTML = "";
@@ -68,69 +61,15 @@ async function consultarFarmacias_vendas() {
         const decoded = jwt_decode(token);
         
         dados.forEach(farmacia => {
-            if (farmacia.rh_id ==  decoded.id){
-                const tr = document.createElement("tr");
-
-                tr.innerHTML = `
-                <td><strong>${farmacia.nome}</strong></td>
-                <td><strong>${farmacia.cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")}</strong></td>
-                <td><strong>${farmacia.total}</strong></td>                    
-                `
-                
-                tabela.appendChild(tr);
-            } 
-        })
-
-    } catch {
-        abrirModal("Erro de conexão");
-    }
-}
-
-async function consultarFuncionarios_gastos() {
-    try{
-        const res = await fetch(`https://convenioiacanga-production.up.railway.app/funcionario/relatorio`, 
-            {
-            headers: {
-                "Authorization": "Bearer " + token
-            },
-        });
-        
-        if (res.status === 401) {
-        localStorage.removeItem("token");
-
-            abrirAlerta(
-                "Sua sessão expirou",
-                () => {
-                    window.location.href = "Login.html";
-                }
-            );
-
-            return;
-        }else if (!res.ok) {
-            const msg = await res.text();
-            abrirModal(msg);
-            return;
-        }
-
-        const dados = await res.json();
-
-        const tabela = document.getElementById("tabelaFuncionarios");
-        tabela.innerHTML = "";
-
-        const decoded = jwt_decode(token);
-        dados.forEach(funcionario => {
             const tr = document.createElement("tr");
-            
+
             tr.innerHTML = `
-            <td><strong>${funcionario.nome}</strong></td>
-            <td><strong>${funcionario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</strong></td>
-            <td><strong>${funcionario.matricula}</strong></td>
-            <td><strong>${funcionario.contrato}</strong></td>
-            <td><strong>${funcionario.total}</strong></td>                    
+            <td><strong>${farmacia.nome}</strong></td>
+            <td><strong>${farmacia.cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")}</strong></td>
+            <td><strong>${farmacia.total}</strong></td>                    
             `
             
             tabela.appendChild(tr);
-            
         })
 
     } catch {
@@ -147,7 +86,7 @@ async function consultarFechamento() {
         if (mes !== undefined && mes !== "") params.append("mes", mes);
         if (ano) params.append("ano", ano);
 
-        const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultar?${params}`, 
+        const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/consultarFar?${params}`, 
             {
             headers: {
                 "Authorization": "Bearer " + token
@@ -199,7 +138,7 @@ async function consultarFechamento() {
 }
 
 async function relatorio(fechamentoId) {
-    const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/relatorio/${fechamentoId}`, 
+    const res = await fetch(`https://convenioiacanga-production.up.railway.app/fechamentos/relatorioFar/${fechamentoId}`, 
             {
             headers: {
                 "Authorization": "Bearer " + token

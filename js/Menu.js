@@ -73,9 +73,9 @@ if (permissoesUsuario.includes(PERMISSOES.RELATORIO_RH)) {
   document.getElementById("btnRelatorioRH").style.display = "flex";
 }
 
-// if (permissoesUsuario.includes(PERMISSOES.RELATORIO_FAR)) {
-//   document.getElementById("btnRelatorioFar").style.display = "flex";
-// }
+if (permissoesUsuario.includes(PERMISSOES.RELATORIO_FAR)) {
+  document.getElementById("btnRelatorioFar").style.display = "flex";
+}
 
 const menu = document.querySelector(".menu");
 const quantidade = menu.children.length;
