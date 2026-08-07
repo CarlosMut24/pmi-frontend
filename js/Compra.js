@@ -146,12 +146,13 @@ async function comprar() {
 }
 
 function abrirModal(texto) {
-  document.getElementById("modalTexto").innerText = texto;
-  document.getElementById("modal").style.display = "flex";
+    carregando = true;
+    document.getElementById("modalTexto").innerText = texto;
+    document.getElementById("modal").style.display = "flex";
 }
 
 function fecharModal() {
-
+    carregando = false;
     location.reload(); // 🔄 recarrega a página
 }
 
