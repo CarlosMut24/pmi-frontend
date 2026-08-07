@@ -24,6 +24,7 @@ async function buscar() {
     const cpf = document.getElementById("cpf").value;
     if (cpf == ""){
         document.getElementById("erroBusca").innerText = "DIGITE O CPF";
+        carregando = false;
         return
     }
     
@@ -50,6 +51,7 @@ async function buscar() {
         if (!res.ok) {
             const msg = await res.text();
             document.getElementById("erroBusca").innerText = msg;
+            carregando = false;
             return;
         }
 
@@ -90,6 +92,8 @@ async function comprar() {
 
     if (cpf == "" || valor == ""){
         document.getElementById("erroCompra").innerText = "DIGITE O CPF É O VALOR";
+        carregando = false;
+        document.getElementById("comprar").style.backgroundColor = "rgb(192, 50, 50)";
         return
     }
 
@@ -120,6 +124,7 @@ async function comprar() {
             const msg = await res.text(); // ✔ lê como texto
             document.getElementById("erroCompra").innerText = msg;
             carregando = false;
+            document.getElementById("comprar").style.backgroundColor = "rgb(192, 50, 50)";
             return;
         }
         const dados = await res.json();
