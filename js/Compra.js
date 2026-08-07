@@ -79,10 +79,14 @@ let compraId = 0;
 async function comprar() {
     if (carregando) return; // 🔒 bloqueia duplo clique
     carregando = true;
+    document.getElementById("comprar").style.backgroundColor = "rgb(116, 107, 107)";
 
     const cpf = document.getElementById("cpf").value;
     const valor = document.getElementById("valor").value;
     const parcelas = document.getElementById("parcelas").value;
+
+    document.getElementById("cpf").value = ""
+    document.getElementById("valor").value = ""
 
     if (cpf == "" || valor == ""){
         document.getElementById("erroCompra").innerText = "DIGITE O CPF É O VALOR";
@@ -142,6 +146,7 @@ async function comprar() {
         carregando = false;
     } finally {
         carregando = false;
+        document.getElementById("comprar").style.backgroundColor = "rgb(192, 50, 50)";
     }
 }
 
