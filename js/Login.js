@@ -1,9 +1,13 @@
 const form = document.getElementById("loginForm");
 console.log("Form enviado");
 
+let carregando = false;
 form.addEventListener("submit", async (e) => {
-  console.log("Form enviado");
     e.preventDefault();
+
+    if (carregando) return;
+    carregando = true;
+    document.getElementById("entrar").style.backgroundColor = "rgb(116, 107, 107)";
 
     const usuario = document.getElementById("usuario").value;
     const senha = document.getElementById("senha").value;
@@ -20,6 +24,8 @@ form.addEventListener("submit", async (e) => {
       if (!resposta.ok) {
         const msg = await resposta.text(); // ✔ lê como texto
         document.getElementById("erro").innerText = msg;
+        carregando = false;
+        document.getElementById("entrar").style.backgroundColor = "rgb(192, 50, 50)";
         return;
       }
 
@@ -30,6 +36,11 @@ form.addEventListener("submit", async (e) => {
       console.log("Login OK");
     } catch (err) {
       document.getElementById("erro").innerText = "Erro de conexão";
+      document.getElementById("entrar").style.backgroundColor = "rgb(192, 50, 50)";
+      carregando = false;
+    } finally {
+      document.getElementById("entrar").style.backgroundColor = "rgb(192, 50, 50)";
+      carregando = false;
     }
 
     
